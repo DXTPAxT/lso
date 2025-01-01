@@ -11,35 +11,54 @@ function App() {
     const danhsachtrungso = document.querySelector(".danhsachtrungso");
 
     function da(dai, luotdanhArr, sodai) {
-      var hesodanh = 0;
+      var hesodanh = luotdanhArr[1].replace(",", ".");
       var hesoma = 0;
-      dai == "hn" ? (hesoma = 54) : (hesoma = 36);
-      if (luotdanhArr[0].length == 4) {
-        hesodanh = luotdanhArr[1].replace(",", ".");
-      } else if (luotdanhArr[0].length == 6) {
-        hesodanh = luotdanhArr[1].replace(",", ".") * 3;
-      } else if (luotdanhArr[0].length == 8) {
-        hesodanh = luotdanhArr[1].replace(",", ".") * 6;
-      } else if (luotdanhArr[0].length == 10) {
-        hesodanh = luotdanhArr[1].replace(",", ".") * 10;
+      var madanh = luotdanhArr[0].split(".");
+      var tongtien = 0;
+      for (var i = 0; i < madanh.length; i++) {
+        if (madanh[i].length == 4) {
+          dai == "hn" ? (hesoma = 54) : (hesoma = 36);
+        } else if (madanh[i].length == 6) {
+          dai == "hn" ? (hesoma = 54 * 3) : (hesoma = 36 * 3);
+        } else if (madanh[i].length == 8) {
+          dai == "hn" ? (hesoma = 54 * 6) : (hesoma = 36 * 6);
+        } else if (madanh[i].length == 10) {
+          dai == "hn" ? (hesoma = 54 * 10) : (hesoma = 36 * 10);
+        }
+        tongtien += hesoma;
       }
-      return sodai * hesoma * hesodanh;
+      return sodai * tongtien * hesodanh;
     }
 
     function dax(dai, luotdanhArr, sodai) {
-      var hesodanh = 0;
+      var hesodanh = luotdanhArr[1].replace(",", ".");
       var hesoma = 0;
-      dai == "hn" ? (hesoma = 67.5) : (hesoma = 45);
-      if (luotdanhArr[0].length == 4) {
-        hesodanh = luotdanhArr[1].replace(",", ".");
-      } else if (luotdanhArr[0].length == 6) {
-        hesodanh = luotdanhArr[1].replace(",", ".") * 3;
-      } else if (luotdanhArr[0].length == 8) {
-        hesodanh = luotdanhArr[1].replace(",", ".") * 6;
-      } else if (luotdanhArr[0].length == 10) {
-        hesodanh = luotdanhArr[1].replace(",", ".") * 10;
+      var madanh = luotdanhArr[0].split(".");
+      var tongtien = 0;
+      for (var i = 0; i < madanh.length; i++) {
+        if (madanh[i].length == 4) {
+          dai == "hn" ? (hesoma = 67.5) : (hesoma = 45);
+        } else if (madanh[i].length == 6) {
+          dai == "hn" ? (hesoma = 67.5 * 3) : (hesoma = 45 * 3);
+        } else if (madanh[i].length == 8) {
+          dai == "hn" ? (hesoma = 67.5 * 6) : (hesoma = 45 * 6);
+        } else if (madanh[i].length == 10) {
+          dai == "hn" ? (hesoma = 67.5 * 10) : (hesoma = 45 * 10);
+        }
+        tongtien += hesoma;
       }
-      return sodai * hesoma * hesodanh;
+      return sodai * tongtien * hesodanh;
+      // dai == "hn" ? (hesoma = 67.5) : (hesoma = 45);
+      // if (luotdanhArr[0].length == 4) {
+      //   hesodanh = luotdanhArr[1].replace(",", ".");
+      // } else if (luotdanhArr[0].length == 6) {
+      //   hesodanh = luotdanhArr[1].replace(",", ".") * 3;
+      // } else if (luotdanhArr[0].length == 8) {
+      //   hesodanh = luotdanhArr[1].replace(",", ".") * 6;
+      // } else if (luotdanhArr[0].length == 10) {
+      //   hesodanh = luotdanhArr[1].replace(",", ".") * 10;
+      // }
+      // return sodai * hesoma * hesodanh;
     }
 
     function bao(luotdanhArr, dai, sodai) {
