@@ -1,9 +1,15 @@
 .App {
   display: flex;
+  flex-direction: column;
+}
+
+.nhapdonGroup {
+  display: flex;
+  flex-direction: row;
 }
 
 .nhapdonbox {
-  width: 50%;
+  width: 70%;
   padding: 10px;
 }
 
@@ -72,6 +78,11 @@ textarea:focus {
   border-radius: 10px;
 }
 
+.ketquasosoGroup {
+  display: flex;
+  margin-bottom: 100px;
+}
+
 .ketquasoso {
   width: 200px;
   height: 24px;
@@ -79,7 +90,7 @@ textarea:focus {
 }
 
 .ketquasosobox {
-  width: 20%;
+  width: 16%;
   padding: 10px;
   border-left: 1px solid;
 }
@@ -113,8 +124,9 @@ textarea:focus {
 }
 
 .trungsobox {
-  width: 30%;
+  width: 20%;
   padding: 10px;
+  padding-left: 0;
 }
 
 .danhsachtrungso {

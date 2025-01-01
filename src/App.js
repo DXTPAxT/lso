@@ -6,9 +6,9 @@ function App() {
     const nhapdontext = document.querySelector(".nhapdontext");
     const tinhtong = document.querySelector(".tinhtong");
     const tongdon = document.querySelector(".tongdon");
-    const ketquasoso = document.querySelector(".textarea1");
-    const check = document.querySelector(".checkkq");
-    const danhsachtrungso = document.querySelector(".danhsachtrungso");
+    const ketquasosoList = document.querySelectorAll(".textarea1");
+    const checkList = document.querySelectorAll(".checkkq");
+    const danhsachtrungsoList = document.querySelectorAll(".danhsachtrungso");
 
     function da(dai, luotdanhArr, sodai) {
       var hesodanh = luotdanhArr[1].replace(",", ".");
@@ -326,103 +326,167 @@ function App() {
       tongdon.innerHTML = tongtien;
     });
 
-    check.addEventListener("click", function () {
-      const ketQua = ketquasoso.value;
-      const ketQuaArr = ketQua.split("\n");
-      const dai = ketQuaArr[0].toLowerCase();
-      const donArr = nhapdontext.value.split("\n");
-      danhsachtrungso.innerHTML = "";
-      nhapdontext.innerHTML = "";
-      let trungSoMap = [];
-      let danhtrungsomap = [];
+    checkList.forEach((check, index) => {
+      check.addEventListener("click", function () {
+        const ketQua = ketquasosoList[index].value;
+        const ketQuaArr = ketQua.split("\n");
+        const dai = ketQuaArr[0].toLowerCase();
+        const donArr = nhapdontext.value.split("\n");
+        danhsachtrungsoList[index].innerHTML = "";
+        nhapdontext.innerHTML = "";
+        let trungSoMap = [];
+        let danhtrungsomap = [];
 
-      for (var i = 0; i < donArr.length; i++) {
-        if (donArr[i].toLowerCase().includes(dai)) {
-          i++;
-          while (donArr[i] != "" && i < donArr.length) {
-            const substrings = [
-              "b",
-              "dau",
-              "duoi",
-              "da",
-              "bdao",
-              "dd",
-              "xdao",
-              "x",
-              "dui",
-            ];
-            let maDanh = [];
-            if (!donArr[i].includes("da")) {
-              const donArrSplit = donArr[i].split(
-                new RegExp(substrings.join("|"), "g")
-              );
-              maDanh = donArrSplit[0].split(".");
-            } else {
-              const donArrSplit = donArr[i].split(
-                new RegExp(substrings.join("|"), "g")
-              );
-              for (let i = 0; i < donArrSplit[0].length; i += 2) {
-                maDanh.push(donArrSplit[0].slice(i, i + 2));
+        for (var i = 0; i < donArr.length; i++) {
+          if (donArr[i].toLowerCase().includes(dai)) {
+            i++;
+            while (donArr[i] != "" && i < donArr.length) {
+              const substrings = [
+                "b",
+                "dau",
+                "duoi",
+                "da",
+                "bdao",
+                "dd",
+                "xdao",
+                "x",
+                "dui",
+              ];
+              let maDanh = [];
+              if (!donArr[i].includes("da")) {
+                const donArrSplit = donArr[i].split(
+                  new RegExp(substrings.join("|"), "g")
+                );
+                maDanh = donArrSplit[0].split(".");
+              } else {
+                const donArrSplit = donArr[i].split(
+                  new RegExp(substrings.join("|"), "g")
+                );
+                for (let i = 0; i < donArrSplit[0].length; i += 2) {
+                  maDanh.push(donArrSplit[0].slice(i, i + 2));
+                }
               }
-            }
 
-            for (var j = 0; j < maDanh.length; j++) {
-              const sokitu = maDanh[j].length;
-              for (var k = 0; k < ketQuaArr.length; k++) {
-                if (!isNaN(ketQuaArr[k]) && ketQuaArr[k].length >= sokitu) {
-                  if (ketQuaArr[k].slice(-sokitu) == maDanh[j]) {
-                    trungSoMap.push(ketQuaArr[k]);
-                    danhtrungsomap.push(maDanh[j]);
+              for (var j = 0; j < maDanh.length; j++) {
+                const sokitu = maDanh[j].length;
+                for (var k = 0; k < ketQuaArr.length; k++) {
+                  if (!isNaN(ketQuaArr[k]) && ketQuaArr[k].length >= sokitu) {
+                    if (ketQuaArr[k].slice(-sokitu) == maDanh[j]) {
+                      trungSoMap.push(ketQuaArr[k]);
+                      danhtrungsomap.push(maDanh[j]);
+                    }
                   }
                 }
               }
+              i++;
             }
-            i++;
           }
         }
-      }
 
-      for (var i = 0; i < ketQuaArr.length; i++) {
-        if (trungSoMap.includes(ketQuaArr[i])) {
-          danhsachtrungso.innerHTML += `<div class="red kqua">${ketQuaArr[i]}</div>`;
-        } else {
-          danhsachtrungso.innerHTML += `<div class="kqua">${ketQuaArr[i]}</div>`;
+        for (var i = 0; i < ketQuaArr.length; i++) {
+          if (trungSoMap.includes(ketQuaArr[i])) {
+            danhsachtrungsoList[index].innerHTML += `<div class="red kqua">${ketQuaArr[i]}</div><span>\n</span>`;
+          } else {
+            danhsachtrungsoList[index].innerHTML += `<div class="kqua">${ketQuaArr[i]}</div><span>\n</span>`;
+          }
         }
-      }
+      });
     });
   }, []);
 
   return (
     <div className="App">
-      <div className="nhapdonbox">
-        <div className="nhapdonboxheader">
-          <div className="nhapdon">Nhập đơn </div>
-          <div className="tinhtong">Tính tổng</div>
+      <div className="nhapdonGroup">
+        <div className="nhapdonbox">
+          <div className="nhapdonboxheader">
+            <div className="nhapdon">Nhập đơn </div>
+            <div className="tinhtong">Tính tổng</div>
+          </div>
+          <textarea
+            className="nhapdontext"
+            placeholder="Nhập đơn ở đây..."
+          ></textarea>
         </div>
-        <textarea
-          className="nhapdontext"
-          placeholder="Nhập đơn ở đây..."
-        ></textarea>
-      </div>
-      <div className="tongbox">
-        <div className="tong">Tổng</div>
-        <div className="tongdon">0</div>
-      </div>
-      <div className="ketquasosobox">
-        <div className="ketquasosoheader">
-          <div className="ketquasoso">Nhập kết quả xổ số</div>
-          <div className="checkkq">Check</div>
+        <div className="tongbox">
+          <div className="tong">Tổng</div>
+          <div className="tongdon">0</div>
         </div>
-        <textarea
-          className="textarea1"
-          rows="4"
-          cols="50"
-          placeholder="Nhập kết quả xổ số..."
-        ></textarea>
       </div>
-      <div className="trungsobox">
-        <div className="trungso">Trúng số</div>
-        <div className="danhsachtrungso"></div>
+
+      <div className="ketquasosoGroup">
+        <div className="ketquasosobox">
+          <div className="ketquasosoheader">
+            <div className="ketquasoso">Nhập kết quả</div>
+            <div className="checkkq">Check</div>
+          </div>
+          <textarea
+            className="textarea1"
+            rows="4"
+            cols="50"
+            placeholder="Nhập kết quả xổ số..."
+          ></textarea>
+        </div>
+
+        <div className="trungsobox">
+          <div className="trungso">Trúng số</div>
+          <div className="danhsachtrungso"></div>
+        </div>
+
+        <div className="ketquasosobox">
+          <div className="ketquasosoheader">
+            <div className="ketquasoso">Nhập kết quả</div>
+            <div className="checkkq">Check</div>
+          </div>
+
+          <textarea
+            className="textarea1"
+            rows="4"
+            cols="50"
+            placeholder="Nhập kết quả xổ số..."
+          ></textarea>
+        </div>
+
+        <div className="trungsobox">
+          <div className="trungso">Trúng số</div>
+          <div className="danhsachtrungso"></div>
+        </div>
+        <div className="ketquasosobox">
+          <div className="ketquasosoheader">
+            <div className="ketquasoso">Nhập kết quả</div>
+            <div className="checkkq">Check</div>
+          </div>
+
+          <textarea
+            className="textarea1"
+            rows="4"
+            cols="50"
+            placeholder="Nhập kết quả xổ số..."
+          ></textarea>
+        </div>
+
+        <div className="trungsobox">
+          <div className="trungso">Trúng số</div>
+          <div className="danhsachtrungso"></div>
+        </div>
+
+        <div className="ketquasosobox">
+          <div className="ketquasosoheader">
+            <div className="ketquasoso">Nhập kết quả</div>
+            <div className="checkkq">Check</div>
+          </div>
+
+          <textarea
+            className="textarea1"
+            rows="4"
+            cols="50"
+            placeholder="Nhập kết quả xổ số..."
+          ></textarea>
+        </div>
+
+        <div className="trungsobox">
+          <div className="trungso">Trúng số</div>
+          <div className="danhsachtrungso"></div>
+        </div>
       </div>
     </div>
   );
