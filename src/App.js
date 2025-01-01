@@ -3,6 +3,17 @@ import "./App.css";
 
 function App() {
   useEffect(() => {
+    const substrings = [
+      "bdao",
+      "b",
+      "dau",
+      "duoi",
+      "da",
+      "dd",
+      "xdao",
+      "x",
+      "dui",
+    ];
     const nhapdontext = document.querySelector(".nhapdontext");
     const tinhtong = document.querySelector(".tinhtong");
     const tongdon = document.querySelector(".tongdon");
@@ -187,6 +198,60 @@ function App() {
       return sodai * tongtien * hesodanh.replace(",", ".");
     }
 
+    function tinhtongtien(dai, maDanh, cacKieuDanh, sodai) {
+      var tongtien = 0;
+
+      cacKieuDanh.forEach((kieudanh) => {
+        var luotdanhArr = [maDanh, kieudanh.replace(/[a-zA-Z]/g, "")];
+        // đá thường
+        if (
+          kieudanh.includes("da") &&
+          !kieudanh.includes("x") &&
+          !kieudanh.includes("dao") &&
+          !kieudanh.includes("dau")
+          // đá x
+        ) {
+          tongtien += da(dai, luotdanhArr, sodai);
+        } else if (
+          kieudanh.includes("da") &&
+          kieudanh.includes("x") &&
+          !kieudanh.includes("dao") &&
+          !kieudanh.includes("dau")
+        ) {
+          tongtien += dax(dai, luotdanhArr, sodai);
+          // baobao
+        } else if (kieudanh.includes("b")) {
+          // bao thường
+          if (!kieudanh.includes("dao")) {
+            tongtien += bao(luotdanhArr, dai, sodai);
+            // bao đảo
+          } else {
+            tongtien += baodao(luotdanhArr, dai, sodai);
+          }
+          // xiu
+        } else if (kieudanh.includes("x")) {
+          // xỉu thường
+          if (!kieudanh.includes("dao")) {
+            tongtien += xc(luotdanhArr, dai, sodai);
+            // xỉu đảo
+          } else {
+            tongtien += xcdao(luotdanhArr, dai, sodai);
+          }
+          // dd
+        } else if (kieudanh.includes("dd")) {
+          tongtien += dd(luotdanhArr, dai, sodai);
+          // đầu
+        } else if (kieudanh.includes("dau")) {
+          tongtien += dau(luotdanhArr, dai, sodai);
+          // đuôi
+        } else if (kieudanh.includes("duoi") || kieudanh.includes("dui")) {
+          tongtien += duoi(luotdanhArr, dai, sodai);
+        }
+      });
+
+      return tongtien;
+    }
+
     tinhtong.addEventListener("click", function () {
       const lines = nhapdontext.value.split("\n");
       const madais = [
@@ -227,7 +292,7 @@ function App() {
         "Ktum",
       ];
       var sodai = 0;
-      var dai;
+      var dai = "";
       var luotdanh;
       var tongtien = 0;
 
@@ -235,6 +300,7 @@ function App() {
         // gắn đài
         if (i == 0 || (sodai == 0 && lines[i] != "")) {
           dai = lines[i];
+
           if (!isNaN(dai[0])) {
             sodai = dai[0];
           } else if (dai.toLowerCase() == "hn") {
@@ -262,66 +328,113 @@ function App() {
           // cộng từng lượt đánh
         } else if (sodai != 0 && lines[i] != "") {
           luotdanh = lines[i];
-          // đá thường
-          if (
-            luotdanh.includes("da") &&
-            !luotdanh.includes("x") &&
-            !luotdanh.includes("dao") &&
-            !luotdanh.includes("dau")
-          ) {
-            var luotdanhArr = luotdanh.split("da");
-            tongtien += da(dai, luotdanhArr, sodai);
-            // đá x
-          } else if (
-            luotdanh.includes("da") &&
-            luotdanh.includes("x") &&
-            !luotdanh.includes("dao") &&
-            !luotdanh.includes("dau")
-          ) {
-            var luotdanhArr = luotdanh.split("da");
-            luotdanhArr[1] = luotdanhArr[1].replace("x", "");
-            tongtien += dax(dai, luotdanhArr, sodai);
-            // bao
-          } else if (luotdanh.includes("b")) {
-            // bao thường
-            if (!luotdanh.includes("dao")) {
-              var luotdanhArr = luotdanh.split("b");
-              tongtien += bao(luotdanhArr, dai, sodai);
-              // bao đảo
-            } else {
-              var luotdanhArr = luotdanh.split("bdao");
-              tongtien += baodao(luotdanhArr, dai, sodai);
-            }
-            // xỉu
-          } else if (luotdanh.includes("x")) {
-            // xỉu thường
-            if (!luotdanh.includes("dao")) {
-              var luotdanhArr = luotdanh.split("x");
-              tongtien += xc(luotdanhArr, dai, sodai);
-              // xỉu đảo
-            } else {
-              var luotdanhArr = luotdanh.split("xdao");
-              tongtien += xcdao(luotdanhArr, dai, sodai);
-            }
-            // dd
-          } else if (luotdanh.includes("dd")) {
-            var luotdanhArr = luotdanh.split("dd");
-            tongtien += dd(luotdanhArr, dai, sodai);
-            // đầu
-          } else if (luotdanh.includes("dau")) {
-            var luotdanhArr = luotdanh.split("dau");
-            tongtien += dau(luotdanhArr, dai, sodai);
-            // đuôi
-          } else if (luotdanh.includes("duoi") || luotdanh.includes("dui")) {
-            if (luotdanh.includes("duoi")) {
-              var luotdanhArr = luotdanh.split("duoi");
-              tongtien += duoi(luotdanhArr, dai, sodai);
-            } else {
-              var luotdanhArr = luotdanh.split("dui");
-              tongtien += duoi(luotdanhArr, dai, sodai);
-            }
+          var luotdanhArr = luotdanh.split(
+            new RegExp(substrings.join("|"), "g")
+          );
+          var madanh = luotdanhArr[0];
+          luotdanh = luotdanh.replace(madanh, "");
+          var cacKieuDanh = [];
+          while (luotdanh != "") {
+            substrings.forEach((subString) => {
+              var kieuDanh = "";
+              if (luotdanh.includes(subString)) {
+                kieuDanh += subString;
+                var index = kieuDanh.indexOf(subString);
+                luotdanh = luotdanh.replace(subString, "");
+                if (
+                  subString != "da" ||
+                  (subString == "da" && !luotdanh.includes("x"))
+                ) {
+                  while (
+                    !/^[a-zA-Z]$/.test(luotdanh[index]) &&
+                    luotdanh[index] != undefined
+                  ) {
+                    kieuDanh += luotdanh[index];
+                    luotdanh =
+                      luotdanh.slice(0, index) + luotdanh.slice(index + 1);
+                  }
+                } else if (subString == "da" && luotdanh.includes("x")) {
+                  while (
+                    luotdanh[index] != "x" &&
+                    luotdanh[index] != undefined
+                  ) {
+                    kieuDanh += luotdanh[index];
+                    luotdanh =
+                      luotdanh.slice(0, index) + luotdanh.slice(index + 1);
+                  }
+                }
+                cacKieuDanh.push(kieuDanh);
+              }
+            });
+            console.log(luotdanh);
           }
+          console.log(cacKieuDanh);
+          console.log(dai);
+          tongtien += tinhtongtien(dai, madanh, cacKieuDanh, sodai);
         }
+
+        // else if (sodai != 0 && lines[i] != "") {
+        //   luotdanh = lines[i];
+        //   // đá thường
+        //   if (
+        //     luotdanh.includes("da") &&
+        //     !luotdanh.includes("x") &&
+        //     !luotdanh.includes("dao") &&
+        //     !luotdanh.includes("dau")
+        //   ) {
+        //     var luotdanhArr = luotdanh.split("da");
+        //     tongtien += da(dai, luotdanhArr, sodai);
+        //     // đá x
+        //   } else if (
+        //     luotdanh.includes("da") &&
+        //     luotdanh.includes("x") &&
+        //     !luotdanh.includes("dao") &&
+        //     !luotdanh.includes("dau")
+        //   ) {
+        //     var luotdanhArr = luotdanh.split("da");
+        //     luotdanhArr[1] = luotdanhArr[1].replace("x", "");
+        //     tongtien += dax(dai, luotdanhArr, sodai);
+        //     // bao
+        //   } else if (luotdanh.includes("b")) {
+        //     // bao thường
+        //     if (!luotdanh.includes("dao")) {
+        //       var luotdanhArr = luotdanh.split("b");
+        //       tongtien += bao(luotdanhArr, dai, sodai);
+        //       // bao đảo
+        //     } else {
+        //       var luotdanhArr = luotdanh.split("bdao");
+        //       tongtien += baodao(luotdanhArr, dai, sodai);
+        //     }
+        //     // xỉu
+        //   } else if (luotdanh.includes("x")) {
+        //     // xỉu thường
+        //     if (!luotdanh.includes("dao")) {
+        //       var luotdanhArr = luotdanh.split("x");
+        //       tongtien += xc(luotdanhArr, dai, sodai);
+        //       // xỉu đảo
+        //     } else {
+        //       var luotdanhArr = luotdanh.split("xdao");
+        //       tongtien += xcdao(luotdanhArr, dai, sodai);
+        //     }
+        //     // dd
+        //   } else if (luotdanh.includes("dd")) {
+        //     var luotdanhArr = luotdanh.split("dd");
+        //     tongtien += dd(luotdanhArr, dai, sodai);
+        //     // đầu
+        //   } else if (luotdanh.includes("dau")) {
+        //     var luotdanhArr = luotdanh.split("dau");
+        //     tongtien += dau(luotdanhArr, dai, sodai);
+        //     // đuôi
+        //   } else if (luotdanh.includes("duoi") || luotdanh.includes("dui")) {
+        //     if (luotdanh.includes("duoi")) {
+        //       var luotdanhArr = luotdanh.split("duoi");
+        //       tongtien += duoi(luotdanhArr, dai, sodai);
+        //     } else {
+        //       var luotdanhArr = luotdanh.split("dui");
+        //       tongtien += duoi(luotdanhArr, dai, sodai);
+        //     }
+        //   }
+        // }
       }
       tongdon.innerHTML = tongtien;
     });
@@ -341,17 +454,6 @@ function App() {
           if (donArr[i].toLowerCase().includes(dai)) {
             i++;
             while (donArr[i] != "" && i < donArr.length) {
-              const substrings = [
-                "b",
-                "dau",
-                "duoi",
-                "da",
-                "bdao",
-                "dd",
-                "xdao",
-                "x",
-                "dui",
-              ];
               let maDanh = [];
               if (!donArr[i].includes("da")) {
                 const donArrSplit = donArr[i].split(
@@ -385,9 +487,13 @@ function App() {
 
         for (var i = 0; i < ketQuaArr.length; i++) {
           if (trungSoMap.includes(ketQuaArr[i])) {
-            danhsachtrungsoList[index].innerHTML += `<div class="red kqua">${ketQuaArr[i]}</div><span>\n</span>`;
+            danhsachtrungsoList[
+              index
+            ].innerHTML += `<div class="red kqua">${ketQuaArr[i]}</div><span>\n</span>`;
           } else {
-            danhsachtrungsoList[index].innerHTML += `<div class="kqua">${ketQuaArr[i]}</div><span>\n</span>`;
+            danhsachtrungsoList[
+              index
+            ].innerHTML += `<div class="kqua">${ketQuaArr[i]}</div><span>\n</span>`;
           }
         }
       });
