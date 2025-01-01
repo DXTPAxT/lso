@@ -73,12 +73,37 @@ textarea:focus {
 }
 
 .ketquasoso {
+  width: 200px;
+  height: 24px;
   margin-left: 10px;
-  margin-top: 10px;
 }
 
 .ketquasosobox {
   width: 20%;
+  padding: 10px;
+}
+
+.ketquasosoheader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.checkkq {
+  width: 80px;
+  height: 24px;
+  text-align: center;
+  background-color: #009d9d;
+  color: #fff;
+  border-radius: 6px;
+  border: 1px solid #000;
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkkq:hover {
+  opacity: 90%;
+  scale: 1.01;
 }
 
 .trungsobox {
