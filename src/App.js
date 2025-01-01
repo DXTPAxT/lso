@@ -12,15 +12,15 @@ function App() {
       var hesoma = 0;
       dai == "hn" ? (hesoma = 54) : (hesoma = 36);
       if (luotdanhArr[0].length == 4) {
-        hesodanh = luotdanhArr[1];
+        hesodanh = luotdanhArr[1].replace(",", ".");
       } else if (luotdanhArr[0].length == 6) {
-        hesodanh = luotdanhArr[1] * 3;
+        hesodanh = luotdanhArr[1].replace(",", ".") * 3;
       } else if (luotdanhArr[0].length == 8) {
-        hesodanh = luotdanhArr[1] * 6;
+        hesodanh = luotdanhArr[1].replace(",", ".") * 6;
       } else if (luotdanhArr[0].length == 10) {
-        hesodanh = luotdanhArr[1] * 10;
+        hesodanh = luotdanhArr[1].replace(",", ".") * 10;
       }
-      return sodai * hesoma * hesodanh.replace(",", ".");
+      return sodai * hesoma * hesodanh;
     }
 
     function dax(dai, luotdanhArr, sodai) {
@@ -28,15 +28,15 @@ function App() {
       var hesoma = 0;
       dai == "hn" ? (hesoma = 67.5) : (hesoma = 45);
       if (luotdanhArr[0].length == 4) {
-        hesodanh = luotdanhArr[1];
+        hesodanh = luotdanhArr[1].replace(",", ".");
       } else if (luotdanhArr[0].length == 6) {
-        hesodanh = luotdanhArr[1] * 3;
+        hesodanh = luotdanhArr[1].replace(",", ".") * 3;
       } else if (luotdanhArr[0].length == 8) {
-        hesodanh = luotdanhArr[1] * 6;
+        hesodanh = luotdanhArr[1].replace(",", ".") * 6;
       } else if (luotdanhArr[0].length == 10) {
-        hesodanh = luotdanhArr[1] * 10;
+        hesodanh = luotdanhArr[1].replace(",", ".") * 10;
       }
-      return sodai * hesoma * hesodanh.replace(",", ".");
+      return sodai * hesoma * hesodanh;
     }
 
     function bao(luotdanhArr, dai, sodai) {
@@ -247,8 +247,7 @@ function App() {
           if (
             luotdanh.includes("da") &&
             !luotdanh.includes("x") &&
-            !luotdanh.includes("dao") &&
-            !luotdanh.includes("dau")
+            !luotdanh.includes("dao") && !luotdanh.includes("dau")
           ) {
             var luotdanhArr = luotdanh.split("da");
             tongtien += da(dai, luotdanhArr, sodai);
@@ -256,8 +255,7 @@ function App() {
           } else if (
             luotdanh.includes("da") &&
             luotdanh.includes("x") &&
-            !luotdanh.includes("dao") &&
-            !luotdanh.includes("dau")
+            !luotdanh.includes("dao") && !luotdanh.includes("dau")
           ) {
             var luotdanhArr = luotdanh.split("da");
             luotdanhArr[1] = luotdanhArr[1].replace("x", "");
@@ -291,6 +289,7 @@ function App() {
             // đầu
           } else if (luotdanh.includes("dau")) {
             var luotdanhArr = luotdanh.split("dau");
+            console.log("dau")
             tongtien += dau(luotdanhArr, dai, sodai);
             // đuôi
           } else if (luotdanh.includes("duoi") || luotdanh.includes("dui")) {
