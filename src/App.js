@@ -247,7 +247,8 @@ function App() {
           if (
             luotdanh.includes("da") &&
             !luotdanh.includes("x") &&
-            !luotdanh.includes("dao") && !luotdanh.includes("dau")
+            !luotdanh.includes("dao") &&
+            !luotdanh.includes("dau")
           ) {
             var luotdanhArr = luotdanh.split("da");
             tongtien += da(dai, luotdanhArr, sodai);
@@ -255,7 +256,8 @@ function App() {
           } else if (
             luotdanh.includes("da") &&
             luotdanh.includes("x") &&
-            !luotdanh.includes("dao") && !luotdanh.includes("dau")
+            !luotdanh.includes("dao") &&
+            !luotdanh.includes("dau")
           ) {
             var luotdanhArr = luotdanh.split("da");
             luotdanhArr[1] = luotdanhArr[1].replace("x", "");
@@ -305,7 +307,7 @@ function App() {
       tongdon.innerHTML = tongtien;
     });
 
-    check.addEventListener("click", function() {
+    check.addEventListener("click", function () {
       const ketQua = ketquasoso.value;
       const ketQuaArr = ketQua.split("\n");
       const dai = ketQuaArr[0].toLowerCase();
@@ -319,13 +321,35 @@ function App() {
         if (donArr[i].toLowerCase().includes(dai)) {
           i++;
           while (donArr[i] != "" && i < donArr.length) {
-            const substrings = ["b", "dau", "duoi", "da", "bdao", "dd", "xdao", "x", "dui"];
-            const donArrSplit = donArr[i].split(new RegExp(substrings.join('|'), 'g'));
-            const maDanh = donArrSplit[0].split(".");
-            
+            const substrings = [
+              "b",
+              "dau",
+              "duoi",
+              "da",
+              "bdao",
+              "dd",
+              "xdao",
+              "x",
+              "dui",
+            ];
+            let maDanh = [];
+            if (!donArr[i].includes("da")) {
+              const donArrSplit = donArr[i].split(
+                new RegExp(substrings.join("|"), "g")
+              );
+              maDanh = donArrSplit[0].split(".");
+            } else {
+              const donArrSplit = donArr[i].split(
+                new RegExp(substrings.join("|"), "g")
+              );
+              for (let i = 0; i < donArrSplit[0].length; i += 2) {
+                maDanh.push(donArrSplit[0].slice(i, i + 2));
+              }
+            }
+
             for (var j = 0; j < maDanh.length; j++) {
               const sokitu = maDanh[j].length;
-              for (var k = 0; k < ketQuaArr.length; k ++) {
+              for (var k = 0; k < ketQuaArr.length; k++) {
                 if (!isNaN(ketQuaArr[k]) && ketQuaArr[k].length >= sokitu) {
                   if (ketQuaArr[k].slice(-sokitu) == maDanh[j]) {
                     trungSoMap.push(ketQuaArr[k]);
@@ -345,9 +369,8 @@ function App() {
         } else {
           danhsachtrungso.innerHTML += `<div class="kqua">${ketQuaArr[i]}</div>`;
         }
-      } 
- 
-    })
+      }
+    });
   }, []);
 
   return (
