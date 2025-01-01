@@ -3,7 +3,7 @@
 }
 
 .nhapdonbox {
-  width: 30%;
+  width: 50%;
   padding: 10px;
 }
 
@@ -81,12 +81,18 @@ textarea:focus {
 .ketquasosobox {
   width: 20%;
   padding: 10px;
+  border-left: 1px solid;
+}
+
+.ketquasosobox textarea {
+  width: 70%;
 }
 
 .ketquasosoheader {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 80%;
 }
 
 .checkkq {
@@ -108,6 +114,17 @@ textarea:focus {
 
 .trungsobox {
   width: 30%;
-  margin-left: 60px;
+  padding: 10px;
 }
 
+.danhsachtrungso {
+  margin-top: 20px;
+}
+
+.red {
+  color: red;
+}
+
+.kqua {
+  height: 18px;
+}
