@@ -20,7 +20,7 @@ function App() {
       } else if (luotdanhArr[0].length == 10) {
         hesodanh = luotdanhArr[1] * 10;
       }
-      return sodai * hesoma * hesodanh;
+      return sodai * hesoma * hesodanh.replace(",", ".");
     }
 
     function dax(dai, luotdanhArr, sodai) {
@@ -36,7 +36,7 @@ function App() {
       } else if (luotdanhArr[0].length == 10) {
         hesodanh = luotdanhArr[1] * 10;
       }
-      return sodai * hesoma * hesodanh;
+      return sodai * hesoma * hesodanh.replace(",", ".");
     }
 
     function bao(luotdanhArr, dai, sodai) {
@@ -213,6 +213,7 @@ function App() {
       var tongtien = 0;
 
       for (var i = 0; i < lines.length; i++) {
+        // gắn đài
         if (i == 0 || (sodai == 0 && lines[i] != "")) {
           dai = lines[i];
           if (!isNaN(dai[0])) {
@@ -236,10 +237,13 @@ function App() {
             });
             dai = lines[i].toLowerCase();
           }
+        // hàng trống
         } else if (sodai != 0 && lines[i] == "") {
           sodai = 0;
+        // cộng từng lượt đánhđánh
         } else if (sodai != 0 && lines[i] != "") {
           luotdanh = lines[i];
+        // đá thườngthường
           if (
             luotdanh.includes("da") &&
             !luotdanh.includes("x") &&
@@ -247,6 +251,7 @@ function App() {
           ) {
             var luotdanhArr = luotdanh.split("da");
             tongtien += da(dai, luotdanhArr, sodai);
+          // đá xx
           } else if (
             luotdanh.includes("da") &&
             luotdanh.includes("x") &&
@@ -255,28 +260,37 @@ function App() {
             var luotdanhArr = luotdanh.split("da");
             luotdanhArr[1] = luotdanhArr[1].replace("x", "");
             tongtien += dax(dai, luotdanhArr, sodai);
+          // bao
           } else if (luotdanh.includes("b")) {
+            // bao thường 
             if (!luotdanh.includes("dao")) {
               var luotdanhArr = luotdanh.split("b");
               tongtien += bao(luotdanhArr, dai, sodai);
+            // bao đảo 
             } else {
               var luotdanhArr = luotdanh.split("bdao");
               tongtien += baodao(luotdanhArr, dai, sodai);
             }
+          // xỉu 
           } else if (luotdanh.includes("x")) {
+            // xỉu thường
             if (!luotdanh.includes("dao")) {
               var luotdanhArr = luotdanh.split("x");
               tongtien += xc(luotdanhArr, dai, sodai);
+            // xỉu đảo
             } else {
               var luotdanhArr = luotdanh.split("xdao");
               tongtien += xcdao(luotdanhArr, dai, sodai);
             }
+          // dd 
           } else if (luotdanh.includes("dd")) {
             var luotdanhArr = luotdanh.split("dd");
             tongtien += dd(luotdanhArr, dai, sodai);
+          // đầu
           } else if (luotdanh.includes("dau")) {
             var luotdanhArr = luotdanh.split("dau");
             tongtien += dau(luotdanhArr, dai, sodai);
+          // đuôi   
           } else if (luotdanh.includes("duoi") || luotdanh.includes("dui")) {
             if (luotdanh.includes("duoi")) {
               var luotdanhArr = luotdanh.split("duoi");
