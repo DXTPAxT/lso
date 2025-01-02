@@ -355,7 +355,7 @@ function App() {
                     counter < max
                   ) {
                     counter++;
-                    console.log(counter);
+                    // console.log(counter);
 
                     kieuDanh += luotdanh[index];
                     luotdanh =
@@ -363,7 +363,6 @@ function App() {
                   }
                 } else if (subString == "da" && luotdanh.includes("x")) {
                   while (
-                    luotdanh[index] != "x" &&
                     luotdanh[index] != undefined &&
                     counter < max
                   ) {
@@ -384,7 +383,7 @@ function App() {
           if (counter == max) {
             alert("Bị lỗi, hãy thử lại.");
           }
-          // console.log(cacKieuDanh);
+          console.log(cacKieuDanh);
           // console.log(dai);
           tongtien += tinhtongtien(dai, madanh, cacKieuDanh, sodai);
         }
