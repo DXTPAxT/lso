@@ -5,12 +5,12 @@ function App() {
   useEffect(() => {
     const substrings = [
       "bdao",
+      "xdao",
       "b",
       "dau",
       "duoi",
       "da",
       "dd",
-      "xdao",
       "x",
       "dui",
     ];
@@ -170,7 +170,6 @@ function App() {
         dai == "hn" ? (hesoma = 5) : (hesoma = 2);
         tongtien += hesoma;
       }
-      console.log(tongtien);
       return sodai * tongtien * hesodanh.replace(",", ".");
     }
 
