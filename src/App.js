@@ -449,7 +449,7 @@ function App() {
         //   }
         // }
       }
-      var tileNhan = tile.value != "" ? tile.value.replace(",", ".") : 1;
+      var tileNhan = tile.value != "" ? tile.value.replace(",", ".")/100 : 1;
       tongdon.innerHTML = tongtien * tileNhan;
     });
 
@@ -528,7 +528,7 @@ function App() {
           <div className="nhapdonboxheader">
             <div className="nhapdon">Nhập đơn</div>
             <div className="tiletinhtong">
-              <input className="tile" placeholder="Nhập tỉ lệ..." />
+              <input className="tile" placeholder="Nhập tỉ lệ %..." />
               <div className="tinhtong">Tính tổng</div>
             </div>
           </div>
