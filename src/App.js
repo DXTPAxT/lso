@@ -22,6 +22,7 @@ function App() {
     const ketquasosoList = document.querySelectorAll(".textarea1");
     const checkList = document.querySelectorAll(".checkkq");
     const danhsachtrungsoList = document.querySelectorAll(".danhsachtrungso");
+    const tile = document.querySelector(".tile");
 
     function da(dai, luotdanhArr, sodai) {
       var hesodanh = luotdanhArr[1].replace(",", ".");
@@ -362,10 +363,7 @@ function App() {
                       luotdanh.slice(0, index) + luotdanh.slice(index + 1);
                   }
                 } else if (subString == "da" && luotdanh.includes("x")) {
-                  while (
-                    luotdanh[index] != undefined &&
-                    counter < max
-                  ) {
+                  while (luotdanh[index] != undefined && counter < max) {
                     counter++;
                     // console.log(counter);
 
@@ -379,7 +377,7 @@ function App() {
             });
             // console.log(luotdanh);
           }
-//        thông báo treo máy
+          //        thông báo treo máy
           if (counter == max) {
             alert("Bị lỗi, hãy thử lại.");
           }
@@ -451,7 +449,8 @@ function App() {
         //   }
         // }
       }
-      tongdon.innerHTML = tongtien;
+      var tileNhan = tile.value != "" ? tile.value.replace(",", ".") : 1;
+      tongdon.innerHTML = tongtien * tileNhan;
     });
 
     checkList.forEach((check, index) => {
@@ -500,7 +499,7 @@ function App() {
               }
               i++;
             }
-//          thông báo treo máy
+            //          thông báo treo máy
             if (counter == max) {
               alert("Bị lỗi, hãy thử lại.");
             }
@@ -527,8 +526,11 @@ function App() {
       <div className="nhapdonGroup">
         <div className="nhapdonbox">
           <div className="nhapdonboxheader">
-            <div className="nhapdon">Nhập đơn </div>
-            <div className="tinhtong">Tính tổng</div>
+            <div className="nhapdon">Nhập đơn</div>
+            <div className="tiletinhtong">
+              <input className="tile" placeholder="Nhập tỉ lệ..." />
+              <div className="tinhtong">Tính tổng</div>
+            </div>
           </div>
           <textarea
             className="nhapdontext"

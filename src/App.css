@@ -20,14 +20,15 @@
 }
 
 .nhapdon {
-  width: 80px;
+  width: 100px;
   height: 24px;
   margin-left: 10px;
+  font-size: 1.2rem;
 }
 
 .tinhtong {
-  width: 80px;
-  height: 24px;
+  width: 100px;
+  height: 30px;
   text-align: center;
   background-color: #009d9d;
   color: #fff;
@@ -35,6 +36,7 @@
   border: 1px solid #000;
   cursor: pointer;
   user-select: none;
+  font-size: 1.2rem;
 }
 
 .tinhtong:hover {
@@ -67,15 +69,17 @@ textarea:focus {
 
 .tong {
   margin-top: 10px;
+  font-size: 1.2rem;
 }
 
 .tongdon {
   margin-top: 10px;
   background-color: #e7e7e7;
   width: 100px;
-  height: 24px;
+  height: 30px;
   text-align: center;
   border-radius: 10px;
+  font-size: 1.2rem;
 }
 
 .ketquasosoGroup {
@@ -139,4 +143,19 @@ textarea:focus {
 
 .kqua {
   height: 18px;
+}
+
+.tiletinhtong {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.tile {
+  margin-right: 10px;
+  width: 100px;
+  height: 30px;
+  background-color: #f3f3f3;
+  border-radius:6px;
+  font-size: 1.2rem;
 }
