@@ -338,7 +338,7 @@ function App() {
           var cacKieuDanh = [];
           while (luotdanh != "" && counter < max) {
             counter++;
-            console.log(counter);
+            // console.log(counter);
             substrings.forEach((subString) => {
               var kieuDanh = "";
               if (luotdanh.includes(subString)) {
