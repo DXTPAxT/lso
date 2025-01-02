@@ -551,12 +551,12 @@ function App() {
             className="textarea1"
             rows="4"
             cols="50"
-            placeholder="Nhập kết quả xổ số..."
+            placeholder="Nhập kết quả..."
           ></textarea>
         </div>
 
         <div className="trungsobox">
-          <div className="trungso">Trúng số</div>
+          <div className="trungso">Danh Sách</div>
           <div className="danhsachtrungso"></div>
         </div>
 
@@ -570,12 +570,12 @@ function App() {
             className="textarea1"
             rows="4"
             cols="50"
-            placeholder="Nhập kết quả xổ số..."
+            placeholder="Nhập kết quả..."
           ></textarea>
         </div>
 
         <div className="trungsobox">
-          <div className="trungso">Trúng số</div>
+          <div className="trungso">Danh Sách</div>
           <div className="danhsachtrungso"></div>
         </div>
         <div className="ketquasosobox">
@@ -588,12 +588,12 @@ function App() {
             className="textarea1"
             rows="4"
             cols="50"
-            placeholder="Nhập kết quả xổ số..."
+            placeholder="Nhập kết quả..."
           ></textarea>
         </div>
 
         <div className="trungsobox">
-          <div className="trungso">Trúng số</div>
+          <div className="trungso">Danh Sách</div>
           <div className="danhsachtrungso"></div>
         </div>
 
@@ -607,12 +607,12 @@ function App() {
             className="textarea1"
             rows="4"
             cols="50"
-            placeholder="Nhập kết quả xổ số..."
+            placeholder="Nhập kết quả..."
           ></textarea>
         </div>
 
         <div className="trungsobox">
-          <div className="trungso">Trúng số</div>
+          <div className="trungso">Danh Sách</div>
           <div className="danhsachtrungso"></div>
         </div>
       </div>
