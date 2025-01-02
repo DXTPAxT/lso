@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import "./App.css";
 
 function App() {
+  var counter = 0;
+  var max = 10000;
   useEffect(() => {
     const substrings = [
       "bdao",
@@ -252,6 +254,7 @@ function App() {
     }
 
     tinhtong.addEventListener("click", function () {
+      counter = 0;
       const lines = nhapdontext.value.split("\n");
       const madais = [
         "Tpho",
@@ -333,7 +336,9 @@ function App() {
           var madanh = luotdanhArr[0];
           luotdanh = luotdanh.replace(madanh, "");
           var cacKieuDanh = [];
-          while (luotdanh != "") {
+          while (luotdanh != "" && counter < max) {
+            counter++;
+            console.log(counter);
             substrings.forEach((subString) => {
               var kieuDanh = "";
               if (luotdanh.includes(subString)) {
@@ -346,8 +351,12 @@ function App() {
                 ) {
                   while (
                     !/^[a-zA-Z]$/.test(luotdanh[index]) &&
-                    luotdanh[index] != undefined
+                    luotdanh[index] != undefined &&
+                    counter < max
                   ) {
+                    counter++;
+                    console.log(counter);
+
                     kieuDanh += luotdanh[index];
                     luotdanh =
                       luotdanh.slice(0, index) + luotdanh.slice(index + 1);
@@ -355,8 +364,12 @@ function App() {
                 } else if (subString == "da" && luotdanh.includes("x")) {
                   while (
                     luotdanh[index] != "x" &&
-                    luotdanh[index] != undefined
+                    luotdanh[index] != undefined &&
+                    counter < max
                   ) {
+                    counter++;
+                    // console.log(counter);
+
                     kieuDanh += luotdanh[index];
                     luotdanh =
                       luotdanh.slice(0, index) + luotdanh.slice(index + 1);
@@ -365,10 +378,14 @@ function App() {
                 cacKieuDanh.push(kieuDanh);
               }
             });
-            console.log(luotdanh);
+            // console.log(luotdanh);
           }
-          console.log(cacKieuDanh);
-          console.log(dai);
+//        thông báo treo máy
+          if (counter == max) {
+            alert("Bị lỗi, hãy thử lại.");
+          }
+          // console.log(cacKieuDanh);
+          // console.log(dai);
           tongtien += tinhtongtien(dai, madanh, cacKieuDanh, sodai);
         }
 
@@ -440,6 +457,7 @@ function App() {
 
     checkList.forEach((check, index) => {
       check.addEventListener("click", function () {
+        counter = 0;
         const ketQua = ketquasosoList[index].value;
         const ketQuaArr = ketQua.split("\n");
         const dai = ketQuaArr[0].toLowerCase();
@@ -452,7 +470,9 @@ function App() {
         for (var i = 0; i < donArr.length; i++) {
           if (donArr[i].toLowerCase().includes(dai)) {
             i++;
-            while (donArr[i] != "" && i < donArr.length) {
+            while (donArr[i] != "" && i < donArr.length && counter < max) {
+              counter++;
+              // console.log(counter);
               let maDanh = [];
               if (!donArr[i].includes("da")) {
                 const donArrSplit = donArr[i].split(
@@ -480,6 +500,10 @@ function App() {
                 }
               }
               i++;
+            }
+//          thông báo treo máy
+            if (counter == max) {
+              alert("Bị lỗi, hãy thử lại.");
             }
           }
         }
