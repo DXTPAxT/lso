@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { Analytics } from '@vercel/analytics/react';
 import "./App.css";
 
 function App() {
@@ -619,7 +618,6 @@ function App() {
           <div className="danhsachtrungso"></div>
         </div>
       </div>
-      <Analytics />
     </div>
   );
 }
