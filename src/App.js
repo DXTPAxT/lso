@@ -48,13 +48,13 @@ function App() {
         for (var i = 0; i < madanh.length; i++) {
           if (madanh[i] == "") continue;
           if (madanh[i].length == 4) {
-            hesoma = 172.8;
+            hesoma = 200;
           } else if (madanh[i].length == 6) {
-            hesoma = 172.8 * 3;
+            hesoma = 200 * 3;
           } else if (madanh[i].length == 8) {
-            hesoma = 172.8 * 6;
+            hesoma = 200 * 6;
           } else if (madanh[i].length == 10) {
-            hesoma = 172.8 * 10;
+            hesoma = 200 * 10;
           }
           tongtien += hesoma;
         }
