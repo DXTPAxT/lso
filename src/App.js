@@ -40,6 +40,8 @@ function App() {
             dai == "hn" ? (hesoma = 54 * 6) : (hesoma = 36 * 6);
           } else if (madanh[i].length == 10) {
             dai == "hn" ? (hesoma = 54 * 10) : (hesoma = 36 * 10);
+          } else if (madanh[i].length == 12) {
+            dai == "hn" ? (hesoma = 54 * 15) : (hesoma = 36 * 15);
           }
           tongtien += hesoma;
         }
